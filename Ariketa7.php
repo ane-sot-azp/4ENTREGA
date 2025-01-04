@@ -74,7 +74,6 @@ $mota = isset($_GET["mota"]) ? $_GET["mota"] : '';
         <?php
         echo "<table>";
         echo "<tr>";
-        echo "  <th>ProduktuId</th>";
         echo "  <th>Izena</th>";
         echo "  <th>Mota</th>";
         echo "  <th>Prezioa (€)</th>";
@@ -88,7 +87,6 @@ $mota = isset($_GET["mota"]) ? $_GET["mota"] : '';
             while ($row = $result->fetch_assoc()) {
                 if (str_contains(strtolower($row["Izena"]), strtolower($bilatu)) && str_contains(strtolower($row["Mota"]), strtolower($mota))) {
                     echo "<tr>";
-                    echo "<td>" . $row["ProduktuID"] . "</td>";
                     echo "<td>" . $row["Izena"] . "</td>";
                     echo "<td>" . $row["Mota"] . "</td>";
                     echo "<td>" . $row["Prezioa"] . "</td>";
