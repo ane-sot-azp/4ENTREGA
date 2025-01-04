@@ -54,7 +54,7 @@ $mota = isset($_GET["mota"]) ? $_GET["mota"] : '';
 <body>
     <div class="container">
         <form action="Ariketa7.php" method="GET">
-            <a href="txertatu.php"><i class="fa fa-plus" aria-hidden="true" id="plus"></i></a>
+            <a href="txertatu.php">Txertatu<i class="fa fa-plus" aria-hidden="true" id="plus"></i></a>
             <input type="text" name="izenaBilatu" value="" placeholder="Produktuaren izena bilatu..." />
             <select name="mota">
                 <option value="">Mota</option>
