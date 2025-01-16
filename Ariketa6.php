@@ -96,7 +96,7 @@ $mota = isset($_GET["mota"]) ? $_GET["mota"] : ''; //mota parametroa GET metodoa
                 echo "<td>" . $row["Mota"] . "</td>"; //lerroan bilatutako produktuaren mota inprimatzen du
                 echo "<td>" . $row["Prezioa"] . "</td>"; ////lerroan bilatutako produktuaren prezioa inprimatzen du
                 echo "<td><a href='editatu.php/?id=" . $row["ProduktuID"] . "'><i class='fa fa-pencil' aria-hidden='true'></i></a><a href=''><i class='fa fa-trash' aria-hidden='true'></i></a><br></td>";
-                //editatzeko eta ezabatzeko ikonoak inprimatzen ditu, editatzearen ikonoa zapalduz gero, editatu.php fitxategira bidalduko dizu eta PruktuIda ere bidalduko du
+                //editatzeko eta ezabatzeko ikonoak inprimatzen ditu, editatzearen ikonoa zapalduz gero, editatu.php fitxategira bidalduko dizu eta aukeratutako lerroko PruktuIda ere bidalduko du
                 echo "</tr>";
                 $lerroak++; //lerroen kontadorean +1 egiten da
             }
