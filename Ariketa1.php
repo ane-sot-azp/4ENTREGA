@@ -1,13 +1,13 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "1MG2024";
-$dbname = "ml_4entrega";
+$servername = "localhost"; //base datuen zerbitzariaren izena
+$username = "root"; //datu baseetako erabiltzailearen izena 
+$password = "1MG2024"; //datu baseetako pasahitza
+$dbname = "ml_4entrega"; //datu basearen izena
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+// datu baseekin konexioa sortu
+$conn = new mysqli($servername, $username, $password, $dbname); 
 
-// Check connection
+// konexioan errore bat dagoen begiratu
 if ($conn->connect_error) {
     die("Ezin da konexioa egin. " . $conn->connect_error);
 }
@@ -16,10 +16,11 @@ if ($conn->connect_error) {
 <html>
 
 <head>
-    <title>1.Ariketa</title>
-    <script src="https://kit.fontawesome.com/83f15f6aab.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css.css" />
+    <title>1.Ariketa</title> <!-- web orrian agertuko den izenburua -->
+    <script src="https://kit.fontawesome.com/83f15f6aab.js" crossorigin="anonymous"></script> <!-- ikonoen liburutegiak kargatzen ditu -->
+    <link rel="stylesheet" href="css.css" /> <!-- css-artxiborako esteka, estiloak aplikatzeko -->
     <style>
+        /* horri honetarako css estiloa */
         *{
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
@@ -50,11 +51,11 @@ if ($conn->connect_error) {
 </head>
 
 <body>
-    <div class="container">
-        <form>
-            <a href=""><i class="fa fa-plus" aria-hidden="true" id="plus"></i></a>
-            <input type="text" name="izenaBilatu" value="" placeholder="Produktuaren izena bilatu..." />
-            <select name="mota">
+    <div class="container"> 
+        <form> <!-- produktuak bilatzeko formularioa -->
+            <a href=""><i class="fa fa-plus" aria-hidden="true" id="plus"></i></a> <!-- plus ikonoa -->
+            <input type="text" name="izenaBilatu" value="" placeholder="Produktuaren izena bilatu..." /> <!-- textu inputa produktuak bilatzeko -->
+            <select name="mota"> <!-- hainbat aukera dituen inputa -->
                 <option value="">Mota</option>
                 <option value="Telefonoa">Telefonoa</option>
                 <option value="Tableta">Tableta</option>
@@ -67,32 +68,32 @@ if ($conn->connect_error) {
                 <option value="Smart Watch">Smart Watch</option>
                 <option value="Gamepad">Gamepad</option>
             </select>
-            <button>Bilatu</button>
+            <button>Bilatu</button> <!-- bilaketa egiteko botoia -->
         </form>
         <?php
-        echo "<table>";
+        echo "<table>"; //produktuak erakusteko taula sortzen da
         echo "<tr>";
-        echo "  <th>ProduktuId</th>";
-        echo "  <th>Izena</th>";
-        echo "  <th>Mota</th>";
-        echo "  <th>Prezioa (€)</th>";
-        echo "  <th>Editatu</th>";
+        echo "  <th>ProduktuId</th>"; //produktuen id-en zutabeen izenburua
+        echo "  <th>Izena</th>"; //produktuen izenen zutabearen izenburua
+        echo "  <th>Mota</th>"; //produktuen motaren zutabearen izenburua
+        echo "  <th>Prezioa (€)</th>"; //produktuen prezioaren zutabeen izenburua
+        echo "  <th>Editatu</th>"; //produktuen edizioa edo ezabatzea egiteko zutabearen izenburua
         echo "</tr>";
-        $sql = "SELECT ProduktuID, Izena, Mota, Prezioa FROM produktuak";
-        $result = $conn->query($sql);
-        if ($result->num_rows > 0) {
+        $sql = "SELECT ProduktuID, Izena, Mota, Prezioa FROM produktuak"; //produktuak datu basetik erakusteko kontsulta
+        $result = $conn->query($sql); //kontsulta ejekutatu eta emaitza gordetzen du $result aldagaiean
+        if ($result->num_rows > 0) { //emaitz guztiak inprimatzeaz zihurtatzen da
             // output data of each row
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
-                echo "<td>" . $row["ProduktuID"] . "</td>";
-                echo "<td>" . $row["Izena"] . "</td>";
-                echo "<td>" . $row["Mota"] . "</td>";
-                echo "<td>" . $row["Prezioa"] . "</td>";
-                echo "<td><a href=''><i class='fa fa-pencil' aria-hidden='true'></i></a><a href=''><i class='fa fa-trash' aria-hidden='true'></i></a><br></td>";
+                echo "<td>" . $row["ProduktuID"] . "</td>"; //produktuen id-a inprimatzen du
+                echo "<td>" . $row["Izena"] . "</td>"; //produktuen izena inprimatzen du
+                echo "<td>" . $row["Mota"] . "</td>"; //produktuen mota inprimatzen du
+                echo "<td>" . $row["Prezioa"] . "</td>"; //produktuen prezioa inprimatzen du
+                echo "<td><a href=''><i class='fa fa-pencil' aria-hidden='true'></i></a><a href=''><i class='fa fa-trash' aria-hidden='true'></i></a><br></td>"; //produktuak editatu eta ezabatzeko ikonoak inprimatzen ditu
                 echo "</tr>";
             }
         }
-        $conn->close();
+        $conn->close(); //datu baseekin egindako konexioa isten du
         ?>
     </div>
 </body>
