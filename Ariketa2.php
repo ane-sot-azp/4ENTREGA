@@ -88,7 +88,7 @@ $bilatu = isset($_GET["izenaBilatu"]) ? $_GET["izenaBilatu"] : '';
         $lerroak = 0; //lerroak zenbatzen dituen aldagaia sortzen da
         if ($result->num_rows > 0) { //emaitz guztiak inprimatzeaz zihurtatzen da
             while ($row = $result->fetch_assoc()) { //emaitzen lerroak inprimatzeaz zihurtatzen den buklea
-                if (str_contains(strtolower($row["Izena"]), strtolower($bilatu))) { //izena &
+                if (str_contains(strtolower($row["Izena"]), strtolower($bilatu))) { //datu baseetan dugun izena eta $bilatu parametroan gorde dugun izena berdinak badira, izen horren lerroa inprimatuko da
                     echo "<tr>"; //lerro berria sortzen du taulan
                     echo "<td>" . $row["ProduktuID"] . "</td>"; //lerroan bilatutako produktuaren id-a inprimatzen du
                     echo "<td>" . $row["Izena"] . "</td>"; //lerroan bilatutako produktuaren izena inprimatzen du
@@ -100,7 +100,7 @@ $bilatu = isset($_GET["izenaBilatu"]) ? $_GET["izenaBilatu"] : '';
                 }
             }
         } else {
-            echo "0 results"; //bilatutakoarekin bat datorren emaitzarik ez badago, '0 results inprimatzen du'
+            echo "0 results"; //bilatutakoarekin bat datorren emaitzarik ez badago, '0 results' inprimatzen du
         }
         echo "</table>"; //taula isten du
         if($lerroak===0){ //0 lerro badaude bilatutakoarekin bat datorren emaitzarik ez dagoela esaten du
