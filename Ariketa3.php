@@ -94,7 +94,7 @@ $bilatu = isset($_GET["mota"]) ? $_GET["mota"] : '';
                     echo "<td>" . $row["Izena"] . "</td>"; //lerroan bilatutako produktuaren izena inprimatzen du
                     echo "<td>" . $row["Mota"] . "</td>"; //lerroan bilatutako produktuaren mota inprimatzen du
                     echo "<td>" . $row["Prezioa"] . "</td>"; ////lerroan bilatutako produktuaren prezioa inprimatzen du
-                    echo "<td><a href=''><i class='fa fa-pencil' aria-hidden='true'></i></a><a href=''><i class='fa fa-trash' aria-hidden='true'></i></a><br></td>"; //editatzeko eta ezabatzeko ikonoak inprimatzen ditu
+                    echo "<td><a href=''><i class='fa fa-pencil' aria-hidden='true'></i></a><a href=''><i class='fa fa-trash' aria-hidden='true'></i></a><br></td>"; //editatzeko eta ezabatzeko ikonoak inprimatzen ditu baina funtzionalitaterik gabe
                     echo "</tr>";
                     $lerroak++; //lerroen kontadorean +1 egiten da
                 }
