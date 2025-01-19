@@ -1,28 +1,29 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "1MG2024";
-$dbname = "ml_4entrega";
+$servername = "localhost"; // Datu basearen zerbitzariaren izena definitzen da
+$username = "root"; // Datu basearen erabiltzaile izena definitzen da
+$password = "1MG2024"; // Datu basearen pasahitza definitzen da
+$dbname = "ml_4entrega"; // Erabiliko den datu basearen izena
 
-// Create connection
+// Zerbitzariarekin eta datu basearekin konexioa sortu
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Konexioan erroreak badaude, mezu bat inprimatzen da eta prozesua gelditzen da
 if ($conn->connect_error) {
     die("Ezin da konexioa egin. " . $conn->connect_error);
 }
-$bilatu = isset($_GET["mota"]) ? $_GET["mota"] : '';
+$bilatu = isset($_GET["mota"]) ? $_GET["mota"] : ''; // GET parametroan "mota" dagoen egiaztatzen da, eta ez badago, ez da ezer gordetzen
 
 ?>
 <html>
 
 <head>
-    <title>3.Ariketa</title>
-    <script src="https://kit.fontawesome.com/83f15f6aab.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css.css" />
+    <title>3.Ariketa</title> 
+    <script src="https://kit.fontawesome.com/83f15f6aab.js" crossorigin="anonymous"></script> <!-- Ikonoen liburutegia kargatzeko script-a -->
+    <link rel="stylesheet" href="css.css" /> <!-- CSS estiloen artxiboa gehitzen da -->
     <style>
-        *{
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        /* Orriaren estilo orokorrak */
+        * {
+            font-family: Verdana, Geneva, Tahoma, sans-serif; 
         }
         a:link {
             color: rgb(29, 153, 175);
@@ -52,10 +53,10 @@ $bilatu = isset($_GET["mota"]) ? $_GET["mota"] : '';
 
 <body>
     <div class="container">
-        <form action="Ariketa3.php" method="GET">
-            <a href=""><i class="fa fa-plus" aria-hidden="true" id="plus"></i></a>
-            <input type="text" name="izenaBilatu" value="" placeholder="Produktuaren izena bilatu..." />
-            <select name="mota">
+        <form action="Ariketa3.php" method="GET"> <!-- Produktuak bilatzeko formularioa GET-en bidez lortzeko -->
+            <a href=""><i class="fa fa-plus" aria-hidden="true" id="plus"></i></a> <!-- Produktu berriak gehitzeko ikonoa -->
+            <input type="text" name="izenaBilatu" value="" placeholder="Produktuaren izena bilatu..." /> <!-- Testua izenaren arabera bilatzeko input-a -->
+            <select name="mota"> <!-- Produktu mota aukeratzeko zerrenda -->
                 <option value="">Mota</option>
                 <option value="Telefonoa">Telefonoa</option>
                 <option value="Tableta">Tableta</option>
@@ -68,42 +69,42 @@ $bilatu = isset($_GET["mota"]) ? $_GET["mota"] : '';
                 <option value="Smart Watch">Smart Watch</option>
                 <option value="Gamepad">Gamepad</option>
             </select>
-            <button>Bilatu</button>
+            <button>Bilatu</button> <!-- Produktuak bilatzeko botoia -->
         </form>
         <?php
-        echo "<table>";
-        echo "<tr>";
-        echo "  <th>ProduktuId</th>";
-        echo "  <th>Izena</th>";
-        echo "  <th>Mota</th>";
-        echo "  <th>Prezioa (€)</th>";
-        echo "  <th>Editatu</th>";
+        echo "<table>"; // Taula berri bat sortzen da produktu datuak erakusteko
+        echo "<tr>"; // Taularen goiburuko errenkada
+        echo "  <th>ProduktuId</th>"; 
+        echo "  <th>Izena</th>"; 
+        echo "  <th>Mota</th>"; 
+        echo "  <th>Prezioa (€)</th>"; 
+        echo "  <th>Editatu</th>"; 
         echo "</tr>";
 
-        $sql = "SELECT ProduktuID, Izena, Mota, Prezioa FROM produktuak";
-        $result = $conn->query($sql);
-        $lerroak = 0;
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                if (str_contains(strtolower($row["Mota"]), strtolower($bilatu))) {
-                    echo "<tr>";
-                    echo "<td>" . $row["ProduktuID"] . "</td>";
-                    echo "<td>" . $row["Izena"] . "</td>";
-                    echo "<td>" . $row["Mota"] . "</td>";
-                    echo "<td>" . $row["Prezioa"] . "</td>";
-                    echo "<td><a href=''><i class='fa fa-pencil' aria-hidden='true'></i></a><a href=''><i class='fa fa-trash' aria-hidden='true'></i></a><br></td>";
-                    echo "</tr>";
-                    $lerroak++;
+        $sql = "SELECT ProduktuID, Izena, Mota, Prezioa FROM produktuak"; // Produktuak lortzeko kontsulta
+        $result = $conn->query($sql); // Kontsulta exekutatu eta emaitzak lortzen dira
+        $lerroak = 0; // Lerroen zenbaketa hasteko hasierako balioañllllllllllllllllllllllll.-
+        if ($result->num_rows > 0) { // Emaitzarik badagoen egiaztatzeko kode zatia
+            while ($row = $result->fetch_assoc()) { // Emaitza bakoitza lerroka prozesatzen da
+                if (str_contains(strtolower($row["Mota"]), strtolower($bilatu))) { // "Mota" datua bilaketarekin bat datorren kode zatia
+                    echo "<tr>"; // Errenkada berri bat gehitzen da
+                    echo "<td>" . $row["ProduktuID"] . "</td>"; // Produktuaren IDa begistaratzen da
+                    echo "<td>" . $row["Izena"] . "</td>"; // Produktuaren izena begistaratzen da
+                    echo "<td>" . $row["Mota"] . "</td>"; // Produktuaren mota begistaratzen da
+                    echo "<td>" . $row["Prezioa"] . "</td>"; // Produktuaren prezioa begistaratzen da
+                    echo "<td><a href=''><i class='fa fa-pencil' aria-hidden='true'></i></a><a href=''><i class='fa fa-trash' aria-hidden='true'></i></a><br></td>"; // Editatzeko eta ezabatzeko ikonoak gehitzen dira
+                    echo "</tr>"; // Errenkada itxi
+                    $lerroak++; // Lerroak gehitzen dira
                 }
             }
         } else {
-            echo "0 results";
+            echo "0 results"; // Emaitzarik ez badago, mezua erakusten da
         }
-        echo "</table>";
-        if ($lerroak === 0) {
-            echo "<h5>Ez dago emaitzarik datu horiekin</h5>";
+        echo "</table>"; // Taula ixtea
+        if ($lerroak === 0) { // Errenkada kopurua 0 bada, mezua inprimatzen da
+            echo "<h5>Ez dago emaitzarik datu horiekin</h5>"; 
         }
-        $conn->close();
+        $conn->close(); // Datu basearen konexioa itxi
 
         ?>
     </div>
