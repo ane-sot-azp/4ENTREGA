@@ -1,44 +1,47 @@
 <?php
 
-ob_start();
-session_cache_limiter('private');
+ob_start(); // Irteera bufferra aktibatu
+session_cache_limiter('private'); // Saio cache-motaren mugatzailea ezarri
 
-$servername = "localhost";
-$username = "root";
-$password = "1MG2024";
-$dbname = "ml_4entrega";
+$servername = "localhost"; // Zerbitzariaren izena
+$username = "root"; // Erabiltzaile izena
+$password = "1MG2024"; // Pasahitza
+$dbname = "ml_4entrega"; // Datu-basearen izena
 
-// Create connection
+// Konexioa sortu
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Konexioan errorea dagoen egiaztatu
 if ($conn->connect_error) {
-    die("Ezin da konexioa egin. " . $conn->connect_error);
+    die("Ezin da konexioa egin. " . $conn->connect_error); // Errore-mezua erakutsi
 }
 
-
-$produktuid = isset($_GET['id']) ? $_GET['id'] : 0;
+// Produktuaren ID-a lortu GET parametroen bidez
+$produktuid = isset($_GET['id']) ? $_GET['id'] : 0; // ID-a ez badago, lehenetsitako balioa 0 izango da
 ?>
+
 <?php
+// Produktuaren ID-a hutsik badago
 if ($produktuid == '') {
-    die;
-} else {
+    die; // Exekuzioa gelditu
+} else { 
+    // Produktua ezabatzeko SQL kontsulta sortu
     $sql = "DELETE FROM produktuak WHERE ProduktuID=" . $produktuid . "";
-    if ($conn->query($sql) === TRUE) {
-        header("Location: ../Ariketa7.php");
-        die();
-    } else {
-        echo "Zerbaitek ez du funtzionatu: " . $conn->error;
+    if ($conn->query($sql) === TRUE) { // Kontsulta arrakastatsua bada
+        header("Location: ../Ariketa7.php"); // Produktu zerrendaren orrira birbideratu
+        die(); // Exekuzioa amaitu
+    } else { // Kontsultak errorea izan badu
+        echo "Zerbaitek ez du funtzionatu: " . $conn->error; // Errore-mezua erakutsi
     }
-    $conn->close();
+    $conn->close(); // Konexioa itxi
 }
 
+// HTML orriaren hasiera idatzi
 echo "<!DOCTYPE html>";
-echo "<html lang='es'>";
+echo "<html lang='es'>"; // HTML hizkuntza kodea
 echo "<head>";
-echo "    <title>Ezabatu</title>";
+echo "    <title>Ezabatu</title>"; // Orrialdearen izenburua
 echo "</head>";
 echo "<body>";
-echo "</body></html>";
-
+echo "</body></html>"; // HTML orriaren bukaera
 ?>

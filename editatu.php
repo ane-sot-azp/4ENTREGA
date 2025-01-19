@@ -1,23 +1,27 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "1MG2024";
-$dbname = "ml_4entrega";
+$servername = "localhost"; // Datu-basearen zerbitzariaren izena
+$username = "root"; // Datu-basearen erabiltzailearen izena
+$password = "1MG2024"; // Datu-basearen pasahitza
+$dbname = "ml_4entrega"; // Datu-basearen izena
 
+// Datu-basearekin konexioa sortu
 $conn = new mysqli($servername, $username, $password, $dbname);
 
+// Konexioan errorea dagoen egiaztatu
 if ($conn->connect_error) {
     die("Ezin da konexioa egin. " . $conn->connect_error);
 }
 
-$produktuid = isset($_GET['id']) ? $_GET['id'] : 0;
-$izena_berezi = $mota_berezi = $prezioa_berezi = "";
+// Produktuaren ID-a lortu GET metodoaren bidez
+$produktuid = isset($_GET['id']) ? $_GET['id'] : 0; // IDa ez badago, balio lehenetsia 0 izango da
+$izena_berezi = $mota_berezi = $prezioa_berezi = ""; // Erabiltzailea editatzen ari den produktua gordetzeko aldagaiak
 
+// Produktu bat aukeratuta badago (IDarekin), haren datuak datu-basetik lortu
 if ($produktuid) {
-    $sql1 = "SELECT Izena, Mota, Prezioa FROM produktuak WHERE ProduktuID =" . $produktuid . "";
-    $result1 = $conn->query($sql1);
-    if ($result1->num_rows > 0) {
-        while ($row = $result1->fetch_assoc()) {
+    $sql1 = "SELECT Izena, Mota, Prezioa FROM produktuak WHERE ProduktuID =" . $produktuid . ""; // Produktua bilatzeko SQL kontsulta
+    $result1 = $conn->query($sql1); // Kontsulta exekutatu
+    if ($result1->num_rows > 0) { // Produktua aurkitzen bada
+        while ($row = $result1->fetch_assoc()) { // Produktuaren datuak lortu eta aldagaietan gorde
             $izena_berezi = $row["Izena"];
             $mota_berezi = $row["Mota"];
             $prezioa_berezi = $row["Prezioa"];
@@ -28,8 +32,9 @@ if ($produktuid) {
 <html>
 
 <head>
-    <title>Editatu</title>
+    <title>Editatu</title> <!-- Orrialdearen izenburua -->
     <style>
+        /* Estiloak definitzen dira */
         * {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
@@ -53,15 +58,15 @@ if ($produktuid) {
         }
 
         input[type="text"] {
-            width: 100%;
+            width: 100%; /* Testu-eremuen zabalera */
         }
 
         input[type="number"] {
-            width: 100%;
+            width: 100%; /* Zenbakien zabalera */
         }
 
         select {
-            width: 100%;
+            width: 100%; /* Aukera-eremuen zabalera */
         }
 
         h1 {
@@ -80,14 +85,15 @@ if ($produktuid) {
 </head>
 
 <body>
-    <h1>Editatu</h1>
+    <h1>Editatu</h1> <!-- Orrialdearen goiburua -->
+    <!-- Produktuaren datuak editatzeko formularioa -->
     <form method="GET" action="editatu.php">
-        <input type="hidden" name="produktuida" value="<?php echo $produktuid ?>" />
-        <label for="Izena">Izena:</label><br>
-        <input type="text" name="izenaa" value="<?php echo $izena_berezi ?>" /><br><br>
-        <label for="Mota">Mota:</label><br>
-        <select name="motaa">
-            <option value="<?php echo $mota_berezi ?>"><?php echo $mota_berezi ?></option>
+        <input type="hidden" name="produktuida" value="<?php echo $produktuid ?>" /> <!-- Produktuaren ID-a gordetzeko ezkutuko eremua -->
+        <label for="Izena">Izena:</label><br> <!-- Izena etiketa -->
+        <input type="text" name="izenaa" value="<?php echo $izena_berezi ?>" /><br><br> <!-- Produktuaren izena -->
+        <label for="Mota">Mota:</label><br> <!-- Mota etiketa -->
+        <select name="motaa"> <!-- Produktuaren mota aukeratzeko eremua -->
+            <option value="<?php echo $mota_berezi ?>"><?php echo $mota_berezi ?></option> <!-- Hautatutako produktuaren mota lehenetsita agertu -->
             <option value="Telefonoa">Telefonoa</option>
             <option value="Tableta">Tableta</option>
             <option value="Ordenagailua">Ordenagailua</option>
@@ -99,25 +105,30 @@ if ($produktuid) {
             <option value="Smart Watch">Smart Watch</option>
             <option value="Gamepad">Gamepad</option>
         </select><br><br>
-        <label for="Prezioa">Prezioa (€):</label><br>
-        <input type="number" name="prezioaa" step="any" min="0" value="<?php echo $prezioa_berezi ?>" /><br><br>
-        <button type="submit">Aldatu</button>
+        <label for="Prezioa">Prezioa (€):</label><br> <!-- Prezioa etiketa -->
+        <input type="number" name="prezioaa" step="any" min="0" value="<?php echo $prezioa_berezi ?>" /><br><br> <!-- Produktuaren prezioa -->
+        <button type="submit">Aldatu</button> <!-- Produktuaren datuak aldatu botoia -->
     </form>
+
     <?php
-    $izenaa = isset($_GET["izenaa"]) ? $_GET["izenaa"] : '';
-    $motaa = isset($_GET["motaa"]) ? $_GET["motaa"] : '';
-    $prezioaa = isset($_GET["prezioaa"]) ? $_GET["prezioaa"] : '';
-    $produktuida = isset($_GET['produktuida']) ? $_GET['produktuida'] : 0;
-    if ($produktuida && ($izenaa || $motaa || $prezioaa)) {
-        $sql = "UPDATE produktuak SET Izena='" . $izenaa . "', Mota='" . $motaa . "', Prezioa=" . $prezioaa . " WHERE ProduktuID=" . $produktuida . "";
-        if ($conn->query($sql) === TRUE) {
-            header("Location: ../Ariketa7.php");
-            die();
-        } else {
-            echo "Zerbaitek ez du funtzionatu: " . $conn->error;
-            echo "<a href='/ML/4ENTREGA/Ariketa7.php'>Datu basera bueltatu</a>";
+    // Formularioaren bidez bidalitako datuak lortu
+    $izenaa = isset($_GET["izenaa"]) ? $_GET["izenaa"] : ''; // Izena lortu
+    $motaa = isset($_GET["motaa"]) ? $_GET["motaa"] : ''; // Mota lortu
+    $prezioaa = isset($_GET["prezioaa"]) ? $_GET["prezioaa"] : ''; // Prezioa lortu
+    $produktuida = isset($_GET['produktuida']) ? $_GET['produktuida'] : 0; // Produktuaren ID-a lortu
+
+    // Produktuaren datuak aldatzeko egiaztatu eta kontsulta sortu
+    if ($produktuida && ($izenaa || $motaa || $prezioaa)) { 
+        $sql = "UPDATE produktuak SET Izena='" . $izenaa . "', Mota='" . $motaa . "', Prezioa=" . $prezioaa . " WHERE ProduktuID=" . $produktuida . ""; // SQL eguneratze kontsulta
+        if ($conn->query($sql) === TRUE) { // Kontsulta arrakastatsua bada
+            header("Location: ../Ariketa7.php"); // Produktuen orrira itzuli
+            die(); // Exekuzioa gelditu
+        } else { // Kontsultan errorea badago
+            echo "Zerbaitek ez du funtzionatu: " . $conn->error; // Errore-mezua erakutsi
+            echo "<a href='/ML/4ENTREGA/Ariketa7.php'>Datu basera bueltatu</a>"; // Orri nagusira itzultzeko esteka
         }
     }
-    $conn->close();
-    echo "</body></html>";
-    ?>
+
+    $conn->close(); // Datu-basearekiko konexioa itxi
+    echo "</body></html>"; // HTML itxi
+?>

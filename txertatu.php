@@ -1,114 +1,116 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "1MG2024";
-$dbname = "ml_4entrega";
+$servername = "localhost"; // Zerbitzariaren izena
+$username = "root"; // Erabiltzaile izena
+$password = "1MG2024"; // Pasahitza
+$dbname = "ml_4entrega"; // Datu-basearen izena
 
-// Create connection
+// Konexioa sortu
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
+// Konexioan errorea dagoen egiaztatu
 if ($conn->connect_error) {
-    die("Ezin da konexioa egin. " . $conn->connect_error);
+    die("Ezin da konexioa egin. " . $conn->connect_error); // Errore-mezua erakutsi eta exekuzioa gelditu
 }
 
-
-$izena = isset($_GET["izena"]) ? $_GET["izena"] : '';
-$mota = isset($_GET["mota"]) ? $_GET["mota"] : '';
-$prezioa = isset($_GET["prezioa"]) ? $_GET["prezioa"] : '';
-
+// Formularioaren balioak jasotzea (GET metodoaren bidez)
+$izena = isset($_GET["izena"]) ? $_GET["izena"] : ''; // "Izena" parametroa, hutsik badago, lehenetsitako balioa hutsune bat da
+$mota = isset($_GET["mota"]) ? $_GET["mota"] : ''; // "Mota" parametroa
+$prezioa = isset($_GET["prezioa"]) ? $_GET["prezioa"] : ''; // "Prezioa" parametroa
 ?>
+
 <html>
 
 <head>
-    <title>Txertatu</title>
+    <title>Txertatu</title> <!-- Orrialdearen izenburua -->
     <style>
         * {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-family: Verdana, Geneva, Tahoma, sans-serif; /* Letra-tipoa definitzen du */
         }
 
         form {
-            text-align: center;
-            background-color: rgb(240, 239, 239);
-            border-radius: 5px;
-            width: 30%;
-            margin: auto;
-            padding: 15px;
-            box-shadow: 0px 0px 10px 4px lightblue;
+            text-align: center; /* Formularioaren testua erdigunean kokatu */
+            background-color: rgb(240, 239, 239); /* Atzeko kolorea */
+            border-radius: 5px; /* Bukaera biribilduak */
+            width: 30%; /* Zabalera definitu */
+            margin: auto; /* Erdian kokatu */
+            padding: 15px; /* Barruko tartea */
+            box-shadow: 0px 0px 10px 4px lightblue; /* Itzala gehitu */
         }
 
         form>input,
         select,
         button {
-            padding: 5px;
-            vertical-align: super;
-            text-align: center;
+            padding: 5px; /* Kanpoaldeko tartea */
+            vertical-align: super; /* Bertikalki lerrokatu */
+            text-align: center; /* Testua erdigunean */
         }
 
         input[type="text"] {
-            width: 100%;
+            width: 100%; /* Zabalera osoa */
         }
 
         input[type="number"] {
-            width: 100%;
+            width: 100%; /* Zabalera osoa */
         }
 
         select {
-            width: 100%;
+            width: 100%; /* Zabalera osoa */
         }
 
         h1 {
-            text-align: center;
+            text-align: center; /* Izenburua erdigunean */
         }
 
         button {
-            width: 40%;
-            height: 40px;
-            background-color: rgb(29, 153, 175);
-            color: white;
-            border-radius: 5px;
-            border: none;
+            width: 40%; /* Botoiaren zabalera */
+            height: 40px; /* Botoiaren altuera */
+            background-color: rgb(29, 153, 175); /* Atzeko kolorea */
+            color: white; /* Testuaren kolorea */
+            border-radius: 5px; /* Bukaera biribilduak */
+            border: none; /* Mugak kendu */
         }
     </style>
 </head>
 
 <body>
-    <h1>Txertatu</h1>
-    <form method="GET" action="txertatu.php">
-        <label for="Izena">Izena:</label><br>
-        <input type="text" name="izena" value="" /><br><br>
-        <label for="Mota">Mota:</label><br>
-        <select name="mota">
-            <option value="">Mota</option>
-            <option value="Telefonoa">Telefonoa</option>
-            <option value="Tableta">Tableta</option>
-            <option value="Ordenagailua">Ordenagailua</option>
-            <option value="Telebista">Telebista</option>
-            <option value="Aurikularrak">Aurikularrak</option>
-            <option value="Bozgorailua">Bozgorailua</option>
-            <option value="Kamera">Kamera</option>
-            <option value="Smart Device">Smart Device</option>
-            <option value="Smart Watch">Smart Watch</option>
-            <option value="Gamepad">Gamepad</option>
+    <h1>Txertatu</h1> <!-- Orrialdearen izenburua -->
+    <form method="GET" action="txertatu.php"> <!-- Formularioa, GET metodoarekin -->
+        <label for="Izena">Izena:</label><br> <!-- Izena eremua -->
+        <input type="text" name="izena" value="" /><br><br> <!-- Testu-sarrerako eremua -->
+        <label for="Mota">Mota:</label><br> <!-- Mota aukeraketa -->
+        <select name="mota"> <!-- Hautaketa zerrenda -->
+            <option value="">Mota</option> <!-- Aukera lehenetsia -->
+            <option value="Telefonoa">Telefonoa</option> <!-- Telefono aukera -->
+            <option value="Tableta">Tableta</option> <!-- Tableta aukera -->
+            <option value="Ordenagailua">Ordenagailua</option> <!-- Ordenagailua aukera -->
+            <option value="Telebista">Telebista</option> <!-- Telebista aukera -->
+            <option value="Aurikularrak">Aurikularrak</option> <!-- Aurikularrak aukera -->
+            <option value="Bozgorailua">Bozgorailua</option> <!-- Bozgorailua aukera -->
+            <option value="Kamera">Kamera</option> <!-- Kamera aukera -->
+            <option value="Smart Device">Smart Device</option> <!-- Gailu adimentsua -->
+            <option value="Smart Watch">Smart Watch</option> <!-- Erloju adimentsua -->
+            <option value="Gamepad">Gamepad</option> <!-- Gamepad aukera -->
         </select><br><br>
-        <label for="Prezioa">Prezioa (€):</label><br>
-        <input input type="number" name="prezioa" step="any" min="0" /><br><br>
-        <button>Txertatu</button>
+        <label for="Prezioa">Prezioa (€):</label><br> <!-- Prezioa eremua -->
+        <input input type="number" name="prezioa" step="any" min="0" /><br><br> <!-- Zenbakizko sarrera -->
+        <button>Txertatu</button> <!-- Botoia -->
     </form>
 
     <?php
+    // Balio guztiak hutsik badaude, exekuzioa gelditu
     if ($izena == '' & $mota == '' & $prezioa == '') {
-        die;
-    } else {
+        die; // Exekuzioa gelditu
+    } else { 
+        // Produktua gehitzeko SQL kontsulta
         $sql = "INSERT INTO produktuak (Izena, Mota, Prezioa) VALUES ('" . $izena . "','" . $mota . "','" . $prezioa . "')";
-        if ($conn->query($sql) === TRUE) {
-            echo "Erregistro berria sartu da!";
-        } else {
-            echo "Zerbaitek ez du funtzionatu: " . $sql . "<br>" . $conn->error;
+        if ($conn->query($sql) === TRUE) { // Kontsulta arrakastatsua bada
+            echo "Erregistro berria sartu da!"; // Mezu positiboa erakutsi
+        } else { // Errorea gertatu bada
+            echo "Zerbaitek ez du funtzionatu: " . $sql . "<br>" . $conn->error; // Errore-mezua erakutsi
         }
-        $conn->close();
+        $conn->close(); // Konexioa itxi
     }
-    echo "</body></html>";
-    header("Location: ./Ariketa7.php");
-    die();
+    echo "</body></html>"; // HTML orriaren bukaera
+    header("Location: ./Ariketa7.php"); // Orrialde nagusira birbideratu
+    die(); // Exekuzioa amaitu
     ?>
