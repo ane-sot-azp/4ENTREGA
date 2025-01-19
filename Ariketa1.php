@@ -1,4 +1,6 @@
 <?php
+// Datu-basearen konexiorako beharrezko datuak
+
 $servername = "localhost";
 $username = "root";
 $password = "1MG2024";
@@ -20,9 +22,13 @@ if ($conn->connect_error) {
     <script src="https://kit.fontawesome.com/83f15f6aab.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css.css" />
     <style>
+                /* Orri osoan erabiliko den letra-tipoa */
+
         *{
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
+                /* Erabili behar diren estilo ezberdinak */
+
         a:link {
             color: rgb(29, 153, 175);
             background-color: transparent;
@@ -51,8 +57,14 @@ if ($conn->connect_error) {
 
 <body>
     <div class="container">
+                <!-- Bilaketa formularioa -->
+
         <form>
+                        <!-- Ikono bat gehitzeko link hutsa -->
+
             <a href=""><i class="fa fa-plus" aria-hidden="true" id="plus"></i></a>
+                        <!-- produktuaren izena bilatzeko -->
+
             <input type="text" name="izenaBilatu" value="" placeholder="Produktuaren izena bilatu..." />
             <select name="mota">
                 <option value="">Mota</option>
@@ -67,9 +79,13 @@ if ($conn->connect_error) {
                 <option value="Smart Watch">Smart Watch</option>
                 <option value="Gamepad">Gamepad</option>
             </select>
+                        <!-- Bilatu botoia -->
+
             <button>Bilatu</button>
         </form>
         <?php
+                // Taula HTML sortzen du datuak erakusteko
+
         echo "<table>";
         echo "<tr>";
         echo "  <th>ProduktuId</th>";
@@ -78,6 +94,8 @@ if ($conn->connect_error) {
         echo "  <th>Prezioa (€)</th>";
         echo "  <th>Editatu</th>";
         echo "</tr>";
+                // SQL kontsulta produktuen datuak lortzeko
+
         $sql = "SELECT ProduktuID, Izena, Mota, Prezioa FROM produktuak";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {

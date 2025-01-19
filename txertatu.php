@@ -1,4 +1,6 @@
 <?php
+// Datu-basea konektatzeko parametroak definitzen dira
+
 $servername = "localhost";
 $username = "root";
 $password = "1MG2024";
@@ -12,6 +14,7 @@ if ($conn->connect_error) {
     die("Ezin da konexioa egin. " . $conn->connect_error);
 }
 
+// Formularioan sartutako balioak jasotzen dira, 'izena', 'mota' eta 'prezioa'
 
 $izena = isset($_GET["izena"]) ? $_GET["izena"] : '';
 $mota = isset($_GET["mota"]) ? $_GET["mota"] : '';
@@ -24,7 +27,7 @@ $prezioa = isset($_GET["prezioa"]) ? $_GET["prezioa"] : '';
     <title>Txertatu</title>
     <style>
         * {
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-family: Verdana,  Geneva, Tahoma;
         }
 
         form {
@@ -97,9 +100,13 @@ $prezioa = isset($_GET["prezioa"]) ? $_GET["prezioa"] : '';
     </form>
 
     <?php
+        // Formularioan ez badira balioak sartu, script-a gelditzen da
+
     if ($izena == '' & $mota == '' & $prezioa == '') {
         die;
     } else {
+        // SQL kontsulta prestatu, produktua txertatzeko
+        // "Izena", "Mota" eta "Prezioa" balioak sartzen dira
         $sql = "INSERT INTO produktuak (Izena, Mota, Prezioa) VALUES ('" . $izena . "','" . $mota . "','" . $prezioa . "')";
         if ($conn->query($sql) === TRUE) {
             echo "Erregistro berria sartu da!";
@@ -109,6 +116,8 @@ $prezioa = isset($_GET["prezioa"]) ? $_GET["prezioa"] : '';
         $conn->close();
     }
     echo "</body></html>";
+        // Erregistroa sartu ondoren, erabiltzailea "Ariketa7.php" orrira bideratuko da
+
     header("Location: ./Ariketa7.php");
     die();
     ?>
